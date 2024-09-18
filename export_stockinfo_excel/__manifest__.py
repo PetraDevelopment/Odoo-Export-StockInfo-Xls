@@ -14,7 +14,7 @@
         'reports/pdf_report_template.xml',
         'reports/pdf_report.xml',
     ],
-
+      'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'installable': True,
     'auto_install': False,
