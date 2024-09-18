@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Product Stock in Excel</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .responsive-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .gray-square {
+            width: 800px; 
+            height: 400px; 
+            background-color: 	#E8E8E8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .image-container {
+                flex-direction: column;
+            }
+            .gray-square {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Export Product Stock in Excel</h1>
+        <h2>Description</h2>
+        <div class="message">
+            <h2>How to create Export Stock Report</h2>
+            <h4>-You can create export stock through the reporting of the Inventory in odoo.</h4>
+        </div>
+        <img src="assets/img1.png" alt="Image 1" class="responsive-img" style="width: 100%;">
+        
+        <div class="message">
+            <h2>Export Stock wizard</h2>
+            <h4>-After clicking on Export Stock, one wizard will appear, in that you have to configure dates for the report, warehouse(s), location(s) and other information.</h4>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img2.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="message">
+            <h2>Export Stock Report in Pdf</h2>
+            <h4>-PDF Report as per the configured warehouse(s), location(s) and date from (….) to (….).</h4>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img3.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+        
+        <div class="message">
+            <h2>Export Stock Report in Excel</h2>
+            <h4>-Excel Report as per the configured warehouse(s), location(s) and date from (….) to (….).
+                (Negative stock will be highlighted in "Red" cells.).</h4>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img4.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="message">
+            <h2>How data appear in excel</h2>
+            <h4>-(each warehouse’s data stay inside its own table).</h4>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img5.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+    
+        
+    </div>
+</body>
+</html>

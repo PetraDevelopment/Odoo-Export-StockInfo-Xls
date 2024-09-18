@@ -1,0 +1,212 @@
+
+<odoo>
+    <data>
+        <template id="pdf_stock_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="header">
+                            <h1>Stock Information Report</h1>
+                            <h2>from: <span t-esc="start_date_str"/></h2>
+                            <h2>to : <span t-esc="end_date_str"/></h2>
+                        </div>
+                        <div class="content">
+                            <style>
+                                @font-face{
+                                    font-cairo: 'Inconsolata';
+                                    src: url(../static/src/fonts/Inconsolata.otf);
+                                }
+ 				               
+                                .text-arabic {
+                                    text-align: center; /* Center align Arabic text */
+                                    direction: rtl; /* Right-to-left text direction for Arabic */
+                                    unicode-bidi: isolate-override; /* Properly handle mixed Arabic and English text */
+                                    word-wrap: break-word; /* Allow long words to wrap */
+                                    white-space: nowrap; /* Preserve whitespace and wrap text */
+                                }
+ 	
+                                .mixed-lang {
+                                    width: 100% !important;
+                                    word-break: break-word; /* Break long words to prevent overflow */
+                                    word-wrap: break-word; /* Allow long words to wrap */
+                                    overflow-wrap: break-word; /* Ensure words wrap within the cell */
+                                    padding: 5px; /* Optional: Add some padding for better readability */
+                                    white-space: normal; /* Ensure the text wraps within the cell */
+                                    font-size: 18px; /* Increased font size for labels in responsive view */
+                                    color: black; /* Set text color to black */
+
+
+                                }
+                                .column-size{
+                                    width: 40%;
+                                    color: black; /* Set text color to black */
+                                }
+                                .font-style{
+                                    color: black; /* Set text color to black */
+
+                                }
+
+                                .arabic-text1 {
+                                    direction: rtl; /* Right-to-left text direction for Arabic */
+                                    text-align: right; /* Right-align the text for Arabic */
+                                    unicode-bidi: embed; /* Handle bidirectional text embedding */
+                                    font-size: 18px; /* Increased font size for labels in responsive view */
+                                    color: black; /* Set text color to black */
+
+
+                                }
+
+                                .english-text {
+                                    direction: ltr; /* Left-to-right text direction for English */
+                                    text-align: left; /* Left-align the text for English */
+                                    font-size: 18px; /* Increased font size for labels in responsive view */
+                                    color: black; /* Set text color to black */
+                                    white-space: pre-wrap;
+
+
+                                }                               
+                                
+                                .col-product-name{
+                                    width: 50%;
+                                }
+                                
+                                
+                            </style>
+
+                            <t t-foreach="warehouse_data" t-as="warehouse">
+
+                                <h3 t-esc="warehouse['warehouse_name']"/> 
+                                <table class="table table-bordered responsive-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="font-style">Internal Reference</th>
+                                            <th class="colum-size">Product Name</th>
+                                            <th class="font-style">Category</th>
+                                            <th class="font-style">Cost Price</th>
+                                            <th class="font-style">Qty</th>
+                                            <th class="font-style">Total Sold</th>
+                                            <th class="font-style">Total Purchased</th>
+                                            <th class="font-style">Valuation</th>
+                                            <th class="font-style">Attribute Values</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="warehouse['product_data']" t-as="product">
+                                            <tr>
+                                                <td class="font-style"><t t-esc="product['sku']"/></td>
+                                                <td class="mixed-lang ">
+                                                    <t t-set="text" t-value="product['name']"/>
+                                                    <span t-foreach="text.split(' ')" t-as="word">
+                                                        <t t-if="word.isalpha() and word.isascii()">
+                                                            <span class="english-text"><t t-esc="word"/> </span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span class="arabic-text1"><t t-esc="word"/> </span>
+                                                        </t>
+                                                    </span>
+                                                </td>
+                                                <td class="column-size">
+                                                    <t t-set="text" t-value="product['category']"/>
+                                                    <span t-foreach="text.split(' ')" t-as="word">
+                                                        <t t-if="word.isalpha() and word.isascii()">
+                                                            <span class="english-text"><t t-esc="word"/> </span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span class="arabic-text1"><t t-esc="word"/> </span>
+                                                        </t>
+                                                    </span>
+
+                                                </td>
+                                                <td class="font-style"><t t-esc="product['cost_price']"/></td>
+                                                <td class="font-style"><t t-esc="product['net_on_hand']"/></td>
+                                                <td class="font-style"><t t-esc="product['sale_value']"/></td>
+                                                <td class="font-style"><t t-esc="product['purchase_value']"/></td>
+                                                <td class="font-style"><t t-esc="product['total_value']"/></td>
+                                               
+                                                <td class="mixed-lang">
+                                                    <t t-set="text" t-value="product['variants']"/>
+                                                    <span t-foreach="text.split(' ')" t-as="word">
+                                                        <t t-if="word.isalpha() and word.isascii()">
+                                                            <span class="english-text"><t t-esc="word"/> </span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span class="arabic-text1"><t t-esc="word"/> </span>
+                                                        </t>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <div style="page-break-after: always;"></div>
+
+                            </t>
+                            <t t-foreach="location_data" t-as="location">
+                                
+                                <h3 t-esc="location['location_name']"/> 
+                                <table class="table table-bordered responsive-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="column-size">Product Name</th>
+                                            <th class="column-size">Location Name</th>
+                                            <th class="font-style">Quantity</th>
+                                            <th class="font-style">Available</th>
+                                            <th class="column-size">Attribute Values</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="location['product_data']" t-as="product">
+                                            <tr>
+                                                <td class="column-size">
+						                            <t t-set="text" t-value="product['name']"/>
+                                                    <span t-foreach="text.split(' ')" t-as="word">
+                                                        <t t-if="word.isalpha() and word.isascii()">
+                                                            <span class="english-text"><t t-esc="word"/> </span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span class="arabic-text1"><t t-esc="word"/> </span>
+                                                        </t>
+                                                    </span>
+
+                                                </td>
+                                                <td class="column-size">
+						                            <t t-set="text" t-value="product['location']"/>
+                                                    <span t-foreach="text.split(' ')" t-as="word">
+                                                        <t t-if="word.isalpha() and word.isascii()">
+                                                            <span class="english-text"><t t-esc="word"/> </span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span class="arabic-text1"><t t-esc="word"/> </span>
+                                                        </t>
+                                                    </span>
+
+                                                </td>
+                                                <td class="font-style"><t t-esc="product['quantity']"/></td>
+                                                <td class="font-style"><t t-esc="product['available']"/></td>
+                                                <td class="column-size">
+                                                    <t t-set="text" t-value="product['variant']"/>
+                                                    <span t-foreach="text.split(' ')" t-as="word">
+                                                        <t t-if="word.isalpha() and word.isascii()">
+                                                            <span class="english-text"><t t-esc="word"/> </span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span class="arabic-text1"><t t-esc="word"/> </span>
+                                                        </t>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <div style="page-break-after: always;"></div>
+
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+
