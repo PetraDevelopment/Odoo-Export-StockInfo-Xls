@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='wizard_form'>
+            <field name="name">wizard.stock.history.form</field>
+            <field name="model">wizard.stock.history</field>
+            <field name="arch" type="xml">
+                <form >
+                    <group>
+                        <group >
+                            <field name="tracking_wise" class="o_setting_right_pane" widget="selection" options="{'horizontal': True}"/>
+                            <field name="warehouse" class="o_setting_right_pane" widget="many2many_tags"  attrs="{'invisible': [('tracking_wise', '!=', 'warehouse_wise')]}"/>
+                            <field name="location" class="o_setting_right_pane" widget="many2many_tags" attrs="{'invisible': [('tracking_wise', '!=', 'location_wise')]}"/>
+                        </group>
+                        <group>
+                            <field name="start_date" class="o_setting_right_pane"/>
+                            <field name="end_date" class="o_setting_right_pane"/>
+                        </group>
+                        <!-- <group>
+                            <field name ='filter_active' class="o_setting_right_pane"/>
+                        </group> -->
+                        <group>
+                            <field name='enable_red_text' class="o_setting_right_pane"/>
+                        </group>
+                        <!-- <div>
+                            <group string="supplier">
+                                <div>
+                                    <field name='supplier'>
+                                        <tree>
+                                            <field name='name'/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </group>
+
+                        </div>
+                        <div>
+                            <group string="Category">
+                                <div>
+                                    <field name="category">
+                                        <tree>
+                                            <field name="name"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </group>
+                        </div>
+                         -->
+                    </group>
+                    <footer>
+                        <button name="export_pdf" type="object" default_focus="1" string="Print PDF" class="oe_highlight" icon="fa-download"/>
+
+                        <button name="export_xls" type="object" default_focus="1" string="Print Excel" class="oe_highlight" icon="fa-download"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='wizard_act'>
+            <field name="name">Export product stock in Excel</field>
+            <field name="res_model">wizard.stock.history</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem name="Export Stock"
+                  parent="stock.menu_warehouse_report"
+                  id="export_excel"
+                  action="wizard_act"
+                  sequence="3"/>
+    </data>
+
+</odoo>
